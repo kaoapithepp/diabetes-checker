@@ -32,6 +32,13 @@ export default createGlobalStyle`
   @font-face {
     font-family: "Mitr";
     font-style: normal;
+    font-weight: 400;
+    src: url("/fonts/Mitr/Mitr-Regular.ttf") format("truetype");
+  }
+
+  @font-face {
+    font-family: "Mitr";
+    font-style: normal;
     font-weight: 500;
     src: url("/fonts/Mitr/Mitr-Medium.ttf") format("truetype");
   }
