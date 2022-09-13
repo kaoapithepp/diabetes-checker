@@ -1,7 +1,7 @@
 import { useState } from "react";
 import styled from "styled-components";
 
-const FormInput = ({
+const NumberInput = ({
     callbackVal,
     label,
     placeholder 
@@ -10,8 +10,8 @@ const FormInput = ({
     const [value, setValue] = useState('');
 
     function onFormChange(e) {
-        callbackVal(e.target.value);
-        setValue(e.target.value);
+        callbackVal(e.target.value.replace(/\D/g, ''));
+        setValue(e.target.value.replace(/\D/g, ''));
     }
     
     return (
@@ -64,4 +64,4 @@ const FormWrapper = styled.div`
     }
 `;
 
-export default FormInput;
+export default NumberInput;

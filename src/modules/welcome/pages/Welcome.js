@@ -34,12 +34,15 @@ const Welcome = () => {
 }
 
 const Container =  styled.div`
-    vertical-align: middle;
-    margin-left: auto;
-    margin-right: auto;
-    width: 60vh;
+    display: flex;
+    flex-direction: column;
+    left: 50%;
+    position: absolute;
+    transform: translate(-50%, 0%);
+    width: 70vh;
+    padding: 10px;
     @media screen and (max-width: 768px) {
-        width: 80%  
+        width: 80vw;
     }
     
     h3 {
