@@ -5,6 +5,7 @@ export default createGlobalStyle`
         --background-color: #FFFFFF;
         --primary-color: #1E88E5; // Brand Blue
         --button-color: #64B5F6; // Button color
+        --disabled: #A8CBE8;
         --black: #000000; // Everything which is black
         --form-grey: #B6B6B6; // Form placeholder, border
         --error: #fefefe; // Error red

@@ -2,6 +2,8 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 import { Button } from "../../../common/components/Button";
+import Header from "../../../common/components/Header";
+import Footer from "../../../common/components/Footer";
 
 const Welcome = () => {
   const navigate = useNavigate();
@@ -13,10 +15,8 @@ const Welcome = () => {
 
   return (
     <Container>
-      <Header>
-        <h2>Diabetes and blood pressure Checker</h2>
-        <h3>คัดกรองโรคเบาหวานและความดันโลหิตด้วยปิงปอง 7 สี</h3>
-      </Header>
+      <Header />
+      <h3>คัดกรองโรคเบาหวานและความดันโลหิตด้วยปิงปอง 7 สี</h3>
       <Content>
         <span>จุดประสงค์</span>
         <p>
@@ -28,30 +28,23 @@ const Welcome = () => {
         <img src="/image/TaeAugust11.jpg" alt="Welcome" className="img" />
         <Button onClick={handleStartButtonClick}>เริ่มทำแบบทดสอบ</Button>
       </Content>
-      <Footer>
-        © Lettuce Dog, 2022 All rights reserved.
-      </Footer>
+      <Footer />
     </Container>
   );
 }
 
 const Container =  styled.div`
-    vertical-align: middle;
-    margin-left: auto;
-    margin-right: auto;
-    width: 60vh;
+    display: flex;
+    flex-direction: column;
+    left: 50%;
+    position: absolute;
+    transform: translate(-50%, 0%);
+    width: 70vh;
+    padding: 10px;
     @media screen and (max-width: 768px) {
-        width: 80%  
+        width: 80vw;
     }
-`;
-
-const Header = styled.div`
-    h2 {
-        color: var(--primary-color);
-        font-weight: 500;
-        margin-bottom: 12px;
-        font-size: 32px;
-    }
+    
     h3 {
         color: var(--button-color);
         font-weight: 500;
@@ -76,11 +69,5 @@ const Content = styled.div`
         width: 100%;
     }
 `;
-
-const Footer = styled.div`
-  color: var(--button-color);
-  font-size: 12px;
-  text-align: center;
-`
 
 export default Welcome;
