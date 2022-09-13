@@ -2,7 +2,7 @@ var entity = {
     name: '',
     gender: '',
     age: 0,
-    disease: '',
+    disease: [''],
     weight: 0,
     height: 0,
     sysBp: 0,

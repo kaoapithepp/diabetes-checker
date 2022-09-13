@@ -114,6 +114,12 @@ const ChildList = styled.div`
     border-radius: 10px;
     box-shadow: 2px 2px 8px 4px rgba(0, 0, 0, 0.05);
     cursor: pointer;
+
+    @media screen and (max-width: 768px) {
+        font-size: 12px;
+        max-height: 10%;
+        width: 50%;
+    }
 `;
 
 export default Dropdown;

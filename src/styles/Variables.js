@@ -8,7 +8,9 @@ export default createGlobalStyle`
         --disabled: #A8CBE8;
         --black: #000000; // Everything which is black
         --form-grey: #B6B6B6; // Form placeholder, border
-        --error: #fefefe; // Error red
+        --error: #FE0044; // Error red
+        --cookie: #f4ca35;
+        --blood: #f43563;
 
         /* PingPong Colors */
         --white: #ffffff;

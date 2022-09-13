@@ -10,6 +10,8 @@ const Welcome = () => {
 
   function handleStartButtonClick(e) {
     e.preventDefault();
+
+    window.scrollTo(0,0);
     navigate("/input", { replace: false });
   }
 

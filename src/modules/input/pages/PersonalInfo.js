@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import styled from "styled-components";
+import IndeterminateCheckBoxIcon from '@mui/icons-material/IndeterminateCheckBox';
 
 import Header from "../../../common/components/Header"
 import Footer from "../../../common/components/Footer"
@@ -17,13 +18,15 @@ const PersonalInfo = () => {
   const [name, setName] = useState();
   const [gender, setGender] = useState();
   const [age, setAge] = useState();
-  const [disease, setDisease] = useState();
+  // const [disease, setDisease] = useState();
   const [weight, setWeight] = useState();
   const [height, setHeight] = useState();
   const [sysBp, setSysBp] = useState();
   const [diaBp, setDiaBp] = useState();
   const [fbs, setFbs] = useState();
   const [isDisabled, setIsDisabled] = useState(true);
+
+  const [diseaseElem, setDiseaseElem] = useState(['']);
 
   const navigate = useNavigate();
 
@@ -37,22 +40,67 @@ const PersonalInfo = () => {
     "เก๊าท์ (Gout)"
   ];
 
+  // let disease_render = diseaseElem.map((elem, key) => {
+  //   return (diseaseElem.length == 1 ?
+  //     <>
+  //       <Dropdown
+  //         key={key}
+  //         callbackVal={setDisease}
+  //         data={DISEASES}
+  //         placeholder="(เลือกโรคประจำตัว)"
+  //       />
+  //     </> 
+  //      : 
+  //     <div className="pop-layout">
+  //       <Dropdown
+  //         key={key}
+  //         callbackVal={setDisease}
+  //         data={DISEASES}
+  //         placeholder="(เลือกโรคประจำตัว)"
+  //       />
+  //       <IndeterminateCheckBoxIcon
+  //         className="pop-icon"
+  //         onClick={removeDiseaseHandle}
+  //       />
+  //     </div>
+  //   );
+  // });
+
+  let disease_render = diseaseElem.map((elem, key) => {
+    return (
+        <Dropdown
+          key={key}
+          callbackVal={e => setAddDisease(e, key)}
+          data={DISEASES}
+          placeholder="(เลือกโรคประจำตัว)"
+        />
+    );
+  });
+
+  function setAddDisease(e, key) {
+    let tempArr = [...diseaseElem];
+    tempArr[key] = e;
+
+    setDiseaseElem(tempArr);
+  }
+
   function handleSubmitClick(e){
     e.preventDefault();
 
     entity['name'] = name;
     entity['gender'] = gender;
     entity['age'] = age;
-    entity['disease'] = disease;
+    entity['disease'] = diseaseElem;
     entity['weight'] = weight;
     entity['height'] = height;
     entity['sysBp'] = sysBp;
     entity['diaBp'] = diaBp;
     entity['fbs'] = fbs;
 
-    console.log(entity);
+    // console.log(entity);
 
-    navigate("/result", { replace: false });
+    window.scrollTo(0,0);
+    navigate("/result", { replace: true });
   }
 
   function handleInputChangeValid(){
@@ -67,10 +115,21 @@ const PersonalInfo = () => {
           setIsDisabled(false);
     }
   }
+
+  function addDiseaseHandle() {
+    setDiseaseElem(diseaseElem => [...diseaseElem, ""]);
+  }
+
+  function removeDiseaseHandle() {
+    setDiseaseElem((products) => products.filter((_, index) => index !== 0));
+  }
+
+  // console.log(diseaseElem);
   
   return (
     <Container>
       <Header />
+      {/* <img src="/image/TaeAugust07.jpg" alt="Health Check" className="img" /> */}
       <h3>กรอกข้อมูลสุขภาพตามความจริงให้ครบถ้วน</h3>
       <Content>
         <form onChange={e => handleInputChangeValid()}>
@@ -108,23 +167,22 @@ const PersonalInfo = () => {
             />
           </div>
           {/* Congenital Disease */}
-          <Dropdown
-              callbackVal={setDisease}
-              data={DISEASES}
-              label="โรคประจำตัว (ถ้ามี)"
-              placeholder="(เลือกโรคประจำตัว)"
-            />
+          <div className="congenital">
+            <p className="label">โรคประจำตัว (ถ้ามี)</p>
+            {disease_render}
+            <p className="add-disease" onClick={addDiseaseHandle}>+ เพิ่มโรคประจำตัว</p>
+          </div>
           {/* Blood Pressure */}
           <div className="grid-display">
             <NumberInput
               callbackVal={setSysBp}
               label="ความดันตัวบน (sys)"
-              placeholder="ค่าความดันตัวบน (mmHg)"
+              placeholder="ค่าตัวบน (mmHg)"
             />
             <NumberInput
               callbackVal={setDiaBp}
               label="ความดันตัวล่าง (dia)"
-              placeholder="ค่าความดันตัวล่าง (mmHg)"
+              placeholder="ค่าตัวล่าง (mmHg)"
             />
           </div>
           <NumberInput
@@ -154,6 +212,10 @@ const Container =  styled.div`
         font-weight: 500;
         margin: 0;
     }
+
+    .img {
+        width: 100%;
+    }
     
     @media screen and (max-width: 768px) {
         width: 80vw;
@@ -167,6 +229,36 @@ const Content = styled.div`
       display: grid;
       grid-template-columns: 1fr 1fr;
       grid-gap: 20px;
+    }
+
+    .congenital {
+      .label {
+        margin: 4px 0px;
+        font-size: 16px;
+
+        @media screen and (max-width: 768px) {
+            font-size: 12px;
+        }
+      }
+      .add-disease {
+        text-align: right;
+        color: var(--button-color);
+        font-size: 12px;
+        cursor: pointer;
+      }
+
+      .pop-layout {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .pop-icon {
+        margin-left: 4px;
+        color: var(--error);
+        cursor: pointer;
+      }
     }
 
     .margin-space {
