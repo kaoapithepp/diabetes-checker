@@ -28,8 +28,8 @@ const Result = () => {
     function validPingPongColor() {
         // HT or DM with others
         if (entity['disease'].length >= 2 &&
-            entity['disease'].includes("ความดันโลหิตสูง (HT)")
-            || entity['disease'].includes("เบาหวาน (DM)")){
+            (entity['disease'].includes("ความดันโลหิตสูง (HT)")
+            || entity['disease'].includes("เบาหวาน (DM)"))){
             setAttrib({
                 color: "#000000",
                 group: "กลุ่มมีภาวะแทรกซ้อน",
@@ -63,7 +63,7 @@ const Result = () => {
         }
 
         // Only HT or DM
-        if (entity['disease'].length == 1 && entity['disease'] == "ความดันโลหิตสูง (HT)" || "เบาหวาน (DM)") {
+        if (entity['disease'].length == 1) {
             // Red
             if (180 <= entity['sysBp'] || 110 <= entity['diaBp'] || 163 <= entity['fbs']){
                 setAttrib({
@@ -127,6 +127,7 @@ const Result = () => {
 
         // console.log(entity);
 
+        window.scrollTo(0,0);
         navigate("/", { replace: true });
     }
 
