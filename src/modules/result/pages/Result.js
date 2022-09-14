@@ -62,8 +62,8 @@ const Result = () => {
             }
         }
 
-        // Only HT or DM
-        if (entity['disease'].length == 1) {
+        // Any disease
+        if (entity['disease'].length >= 1) {
             // Red
             if (180 <= entity['sysBp'] || 110 <= entity['diaBp'] || 163 <= entity['fbs']){
                 setAttrib({
