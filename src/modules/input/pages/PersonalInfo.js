@@ -15,7 +15,6 @@ import entity from "../../../entity/entity";
 
 const PersonalInfo = () => {
 
-  const [name, setName] = useState();
   const [gender, setGender] = useState();
   const [age, setAge] = useState();
   // const [disease, setDisease] = useState();
@@ -31,13 +30,14 @@ const PersonalInfo = () => {
   const navigate = useNavigate();
 
   const DISEASES = [
-    "ความดันโลหิตสูง (HT)",
-    "เบาหวาน (DM)",
-    "ไตวายเรื้อรัง (CKD)",
-    "ไขมันในเส้นเลือด (DLP)",
-    "โรคหลอดเลือดในสมอง (Stroke)",
-    "โรคหัวใจ (Heart disease)",
-    "เก๊าท์ (Gout)"
+    "ไม่มีโรคประจำตัว",
+    "ความดันโลหิตสูง",
+    "เบาหวาน",
+    "โรคไตวายเรื้อรัง",
+    "โรคอัมพฤกษ์ อัมพาต",
+    "โรคกล้ามเนื้อหัวใจขาดเลือด",
+    "ตาบอด",
+    "เนื้อตาย ปลายมือปลายเท้า"
   ];
 
   // let disease_render = diseaseElem.map((elem, key) => {
@@ -87,7 +87,6 @@ const PersonalInfo = () => {
   function handleSubmitClick(e){
     e.preventDefault();
 
-    entity['name'] = name;
     entity['gender'] = gender;
     entity['age'] = age;
     entity['disease'] = diseaseElem;
@@ -104,8 +103,7 @@ const PersonalInfo = () => {
   }
 
   function handleInputChangeValid(){
-    if ( name &&
-        gender &&
+    if (gender &&
         age &&
         weight &&
         height &&
@@ -133,12 +131,6 @@ const PersonalInfo = () => {
       <h3>กรอกข้อมูลสุขภาพตามความจริงให้ครบถ้วน</h3>
       <Content>
         <form onChange={e => handleInputChangeValid()}>
-          {/* Name */}
-          <FormInput
-            callbackVal={setName}
-            label="ชื่อ-นามสกุล"
-            placeholder="ชื่อ-นามสกุล"
-          />
           {/* Gender & Age */}
           <div className="grid-display">
             <Dropdown
@@ -168,7 +160,7 @@ const PersonalInfo = () => {
           </div>
           {/* Congenital Disease */}
           <div className="congenital">
-            <p className="label">โรคประจำตัว (ถ้ามี)</p>
+            <p className="label">โรคประจำตัว</p>
             {disease_render}
             <p className="add-disease" onClick={addDiseaseHandle}>+ เพิ่มโรคประจำตัว</p>
           </div>
@@ -176,18 +168,18 @@ const PersonalInfo = () => {
           <div className="grid-display">
             <NumberInput
               callbackVal={setSysBp}
-              label="ความดันตัวบน (sys)"
+              label="ความดันโลหิตค่าบน (sys)"
               placeholder="ค่าตัวบน (mmHg)"
             />
             <NumberInput
               callbackVal={setDiaBp}
-              label="ความดันตัวล่าง (dia)"
+              label="ความดันโลหิตค่าล่าง (dia)"
               placeholder="ค่าตัวล่าง (mmHg)"
             />
           </div>
           <NumberInput
             callbackVal={setFbs}
-            label="น้ำตาลในเลือด "
+            label="น้ำตาลในเลือด"
             placeholder="ค่าน้ำตาลในเลือด (mg/dL)"
           />
         </form>
@@ -217,7 +209,7 @@ const Container =  styled.div`
         width: 100%;
     }
     
-    @media screen and (max-width: 768px) {
+    @media screen and (max-width: 820px) {
         width: 80vw;
     }
 `;

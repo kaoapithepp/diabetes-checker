@@ -3,7 +3,7 @@ import styled from "styled-components";
 const Header = () => {
     return (
         <HeaderText>
-            <h2>Diabetes and blood pressure Checker</h2>
+            <h2>BCNC fights with NCD</h2>
         </HeaderText>
     );
 }
