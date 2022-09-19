@@ -22,6 +22,15 @@ const Result = () => {
 
     const navigate = useNavigate();
 
+    const OTHER_DISEASES = [
+        "ไม่มีโรคประจำตัว",
+        "โรคไตวายเรื้อรัง",
+        "โรคอัมพฤกษ์ อัมพาต",
+        "โรคกล้ามเนื้อหัวใจขาดเลือด",
+        "ตาบอด",
+        "เนื้อตาย ปลายมือปลายเท้า"
+    ];
+
     useEffect(() => {
         validPingPongColor();
     },[])
@@ -29,7 +38,7 @@ const Result = () => {
     // Group: White & Pate Green
     function groupWhiteAndPaleGreen() {
         // Normal
-        if (entity['sysBp'] < 120 && entity['diaBp'] < 80 && entity['fbs'] < 100){
+        if (entity['sysBp'] < 120 && entity['diaBp'] < 80 && entity['fbs'] < 125){
             setAttrib({
                 color: "#FFFFFF",
                 colorName: "สีขาว",
@@ -39,9 +48,9 @@ const Result = () => {
             return;
         }
         // Pale green
-        if ( 120 <= entity['sysBp'] && entity['sysBp'] <= 139
-            || 80 <= entity['diaBp'] && entity['diaBp'] <= 89
-            || 100 <= entity['fbs'] && entity['fbs'] <= 125){
+        if ( 120 <= entity['sysBp']
+            || 80 <= entity['diaBp']
+            || 125 <= entity['fbs']){
             setAttrib({
                 color: "#AADA76",
                 colorName: "สีเขียวอ่อน",
@@ -115,39 +124,32 @@ const Result = () => {
     }
 
     function validPingPongColor() {
-        // DM/HT come with HT/DM
-        if (entity['disease'].length >= 2
-            && (entity['disease'].includes("ความดันโลหิตสูง") && entity['disease'].includes("เบาหวาน"))){
-            
-            // console.log('DM/HT come with HT/DM');
-            return groupColors();
-        }
-
-        // HT or DM with others
-        if (entity['disease'].length >= 2
-            && (entity['disease'].includes("ความดันโลหิตสูง")
-                || entity['disease'].includes("เบาหวาน"))){
-                
-            // console.log('HT or DM with others');
-            return groupBlack();
-        }
-
-        // No disease or Any disease except HT and DM
-        if (entity['disease'].length >= 1
-            && (entity['disease'] != "ความดันโลหิตสูง"
-                && entity['disease'] != "เบาหวาน")) {
-
-            // console.log('No disease or Any disease except HT and DM');
+        // No contenginal disease
+        if (entity['disease'] == "ไม่มีโรคประจำตัว") {
             return groupWhiteAndPaleGreen();
         }
-
-        // Only DM or HT
+        // Only HT or DM
         if (entity['disease'].length == 1
-            && (entity['disease'] == "ความดันโลหิตสูง"
-                || entity['disease'] == "เบาหวาน")) {
-
-            // console.log('Only DM or HT');
+            && (entity['disease'] == "เบาหวาน"
+            || entity['disease'] == "ความดันโลหิตสูง")) {
             return groupColors();
+        }
+        // up to 2 diseases; Only HT or DM
+        if (entity['disease'].length >= 2
+            && (!OTHER_DISEASES.some(elem => entity['disease'].includes(elem)))){
+            return groupColors();
+        }
+        // Any but no DM and HT
+        if (entity['disease'].length >= 1
+        && (!["เบาหวาน", "ความดันโลหิตสูง"].some(elem => entity['disease'].includes(elem)))
+            && (OTHER_DISEASES.some(elem => entity['disease'].includes(elem)))) {
+            return groupWhiteAndPaleGreen();
+        }
+        // Any with DM or HT
+        if (entity['disease'].length >= 2
+            && (["เบาหวาน", "ความดันโลหิตสูง"].some(elem => entity['disease'].includes(elem)))
+            && (OTHER_DISEASES.some(elem => entity['disease'].includes(elem)))) {
+            return groupBlack();
         }
     }
 

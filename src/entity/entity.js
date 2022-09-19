@@ -1,13 +1,12 @@
 var entity = {
-    name: '',
     gender: '',
     age: 0,
-    disease: ["เบาหวาน", "ความดันโลหิตสูง"],
+    disease: [""],
     weight: 0,
     height: 0,
-    sysBp: 140,
-    diaBp: 70,
-    fbs: 10
+    sysBp: 0,
+    diaBp: 0,
+    fbs: 0
 };
 
 export default entity;
